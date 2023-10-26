@@ -25,7 +25,7 @@ body{
 }
 
 .header .logo img{
-  height: 70px;
+  height: 80px;
   width: auto;
   transition: all 0.3s;
 }
@@ -45,7 +45,7 @@ body{
 .header .nav-links li{
   display: inline-block;
   padding: 0 20px;
-  
+
 }
 
 .header .nav-links li:hover{
@@ -64,132 +64,71 @@ body{
 }
 
 /*Imagen grande*/
-img{
+.logo-grande{
+  background-color: #191826;
+}
+.logo-grande img{
   width:100%;
   object-fit: cover;
+  animation: fadeIn 5s;
+}
+
+@keyframes fadeIn{
+  0%{
+    opacity:0;
+  }
+  100%{
+    opacity:1;
+  }
 }
 
 
 
 /* Caja de busqueda*/
-.search-box {
-    position: relative;
-    width: 100%;
-    max-width: 360px;
-    height: 60px;
-    border-radius: 120px;
-    margin: 0 auto;
-  }
-  .search-icon, .go-icon {
-    position: absolute;
-    top: 0;
-    height: 60px;
-    width: 86px;
-    line-height: 61px;
-    text-align: center;
-  }
-  .search-icon {
-    left: 0;
-    pointer-events: none;
-    font-size: 1.22em;
-    will-change: transform;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform-origin: center center;
-    -webkit-transform-origin: center center;
-    -moz-transform-origin: center center;
-    -o-transform-origin: center center;
-    transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -webkit-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -moz-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -o-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-  }
-  .si-rotate {
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-  }
-  .go-icon {
-    right: 0;
-    pointer-events: none;
-    font-size: 1.38em;
-    will-change: opacity;
-    cursor: default;
-    opacity: 0;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -webkit-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -moz-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -o-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-  }
-  .go-in {
-    opacity: 1;
-    pointer-events: all;
-    cursor: pointer;
-    transform: rotate(0);
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    -o-transform: rotate(0);
-    transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -webkit-transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -moz-transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-    -o-transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-  }
-  .search-border {
-    display: block;
-    width: 100%;
-    max-width: 360px;
-    height: 60px;
-  }
-  .border {
-    fill: none;
-    stroke: #FFFFFF;
-    stroke-width: 5;
-    stroke-miterlimit: 10;
-  }
-  .border {
-    stroke-dasharray: 740;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
-    -webkit-transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
-    -moz-transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
-    -o-transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
-  }
-  .border-searching .border {
-    stroke-dasharray: 740;
-    stroke-dashoffset: 459;
-    transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
-    -webkit-transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
-    -moz-transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
-    -o-transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
-  }
-  #search {
-    font-family: 'Montserrat Alternates', sans-serif;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 120px;
-    border: none;
-    background: rgba(255,255,255,0);
-    padding: 0 68px 0 68px;
-    color: #FFFFFF;
-    font-size: 1.32em;
-    font-weight: 400;
-    letter-spacing: -0.015em;
-    outline: none;
-  }
-  #search::-webkit-input-placeholder {color: #FFFFFF;}
-  #search::-moz-placeholder {color: #FFFFFF;}
-  #search:-ms-input-placeholder {color: #FFFFFF;}
-  #search:-moz-placeholder {color: #FFFFFF;}
-  #search::-moz-selection {color: #FFFFFF; background: rgba(0,0,0,0.25);}
-  #search::selection {color: #FFFFFF; background: rgba(0,0,0,0.25);}
-  
+
+.container{
+  width: 100%;
+  min-height: 100vh;
+  padding: 5%;
+  background-color: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9));
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.busqueda{
+  width:100%;
+  max-width: 700px;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 10px 20px;
+  backdrop-filter: blur(4px) saturate(100%);
+}
+
+.busqueda input{
+  background:  transparent;
+  flex :1;
+  border: 0;
+  outline:  none;
+  padding: 24px 20px;
+  font-size: 30px;
+  color: #191826;
+}
+
+
+.busqueda button img{
+  width: 40px;
+}
+
+.busqueda button{
+  border:0;
+  border-radius: 50%;
+  width:60px;
+  height: 60px;
+  background:  rgb(251, 187, 68);
+  cursor:pointer;
+}
