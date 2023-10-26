@@ -82,20 +82,26 @@ body{
   }
 }
 
+/*Frase explicación*/
 
+.frase p{
+  font-family: 'SemiBold 600', Nunito ;
+  font-weight: 200;
+  font-size: 2.2rem;
+  text-align: center;
+  vertical-align: middle;
+  margin: 10%;
+}
 
 /* Caja de busqueda*/
 
 .container{
   width: 100%;
-  min-height: 100vh;
-  padding: 5%;
-  background-color: linear-gradient(rgba(0,8,51,0.9),rgba(0,8,51,0.9));
-  background-position: center;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 5%;
 }
 
 .busqueda{
@@ -119,7 +125,9 @@ body{
   color: #191826;
 }
 
-
+::placeholder{
+  color: #313135;
+}
 .busqueda button img{
   width: 40px;
 }
