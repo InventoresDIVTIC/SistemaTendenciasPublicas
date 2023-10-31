@@ -4,7 +4,6 @@
   box-sizing: border-box;
   margin: 0;
   padding:0;
-  font-family:  'Nunito', sans-serif;
   font-size: 20px;
 }
 
@@ -22,6 +21,7 @@ body{
   height: 85px;
   padding: 5px 10%;
   object-fit: cover;
+  font-family:  ' Nunito Sans Sans', sans-serif;
 }
 
 .header .logo img{
@@ -85,7 +85,7 @@ body{
 /*Frase explicación*/
 
 .frase p{
-  font-family: 'SemiBold 600', Nunito ;
+  font-family: 'SemiBold 600',  Nunito Sans ;
   font-weight: 200;
   font-size: 2.2rem;
   text-align: center;
@@ -142,4 +142,82 @@ body{
 }
 
 
-/*footer https://www.youtube.com/watch?v=QEa1SvZlWtY&t=985s*/
+/*footer*/
+
+.pie-pagina{
+  width:100%;
+  background-color: #191826;
+  font-family:  ' Nunito Sans', sans-serif;
+
+}
+
+.pie-pagina .grupo-1{
+  width:100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  padding: 45px 0px;
+}
+
+.pie-pagina .grupo-1 .box figure{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.pie-pagina .grupo-1 .box figure img{
+  width: 350px;
+}
+
+.pie-pagina .grupo-1 .box h2{
+  color: white;
+  margin-bottom: 25px;
+  font-size: 20px;
+
+}
+
+.pie-pagina .grupo-1 .box p{
+  color: #efefef;
+  margin-bottom: 10px;
+}
+
+.pie-pagina .grupo-1 .red-social a{
+  display : inline-block;
+  text-decoration: none;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  color:#fff;
+  margin-right: 10px;
+  background-color: #0d2033;
+  text-align: center;
+  transition: all 300ms ease;
+
+}
+
+.pie-pagina .grupo-1 .red-social a:hover{
+  color:rgb(251, 187, 68);
+}
+
+.pie-pagina .grupo-2{
+  background-color: #1b3039;
+  padding: 15px 10px;
+  text-align: center;
+  color: #fff;
+
+}
+
+.pie-pagina .grupo-2 small{
+  font-size: 15px;
+  font-family: 'ExtraLight 200',  Nunito Sans ;
+}
+
+.pie-pagina .grupo-2 small b{
+  font-size: 15px;
+  font-family: 'ExtraLight 200',  Nunito Sans ;
+}
