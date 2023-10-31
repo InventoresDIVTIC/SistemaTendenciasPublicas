@@ -1,2 +1,2 @@
 # SistemaTendenciasPublicas
-Sistema de tendencias públicas colativa  
+Sistema de tendencias públicas coletiva  
