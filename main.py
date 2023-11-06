@@ -1,15 +1,31 @@
-import csv
-import snscrape.modules.twitter as sntwitter
-import pandas as pd 
-from time import sleep 
-from tqdm import tqdm
+import facebook_scraper as fs
 
-#colect data in general https://www.youtube.com/watch?v=QLIYJoRvd-M
+# get POST_ID from the URL of the post which can have the following structure:
+# https://www.facebook.com/USER/posts/POST_ID
+# https://www.facebook.com/groups/GROUP_ID/posts/POST_ID
+POST_ID = "pfbid02NsuAiBU9o1ouwBrw1vYAQ7khcVXvz8F8zMvkVat9UJ6uiwdgojgddQRLpXcVBqYbl"
 
+# number of comments to download -- set this to True to download all comments
+MAX_COMMENTS = 100
 
-tweet_data =[]
+# get the post (this gives a generator)
+gen = fs.get_posts(
+    post_urls=[POST_ID],
+    options={"comments": MAX_COMMENTS, "progress": True}
+)
 
-username=input('enter what do you want to searcg')
-number=10000
+# take 1st element of the generator which is the post we requested
+post = next(gen)
 
-for i, tweets in enumerate (sntwitter.TwitterTweetScraper({}))
+# extract the comments part
+comments = post['comments_full']
+
+# process comments as you want...
+for comment in comments:
+
+    # e.g. ...print them
+    print(comment)
+
+    # e.g. ...get the replies for them
+    for reply in comment['replies']:
+        print(' ', reply)
