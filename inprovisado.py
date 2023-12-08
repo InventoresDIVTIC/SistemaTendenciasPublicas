@@ -1,30 +1,104 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import time
 
-# Replace with the URL of the tweet you want to scrape
-tweet_url = 'https://twitter.com/user/status/1234567890123456789'
+import pandas as pd
+import numpy as np
 
-# Set up Selenium WebDriver
-driver = webdriver.Chrome()  # You'll need to have the ChromeDriver executable in your PATH
-driver.get(tweet_url)
-time.sleep(5)  # Wait for the page to load
+data=pd.read_csv('entrenamiento/IMDB Dataset SPANISH.csv')
 
-# Scroll down to load more replies
-body = driver.find_element_by_tag_name('body')
-for _ in range(3):  # Adjust the number of scrolls based on the number of replies you want to load
-    body.send_keys(Keys.PAGE_DOWN)
-    time.sleep(2)
+x=np.asanyarray(data.drop(columns=['Index','review_en','sentiment']))
+print(x)
 
-# Get comments (replies)
-comments = driver.find_elements_by_css_selector('.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-5f2r5o.r-1mi0q7o')
-comment_texts = [comment.text for comment in comments]
+"""from bs4 import BeautifulSoup
+import requests
+import sys
+import json
 
-# Print and write comments to a file
-with open('txt/tweets_selenium.txt', 'a', encoding='utf-8') as file:
-    for item in comment_texts:
-        print(item)
-        file.write(item + '\n')
 
-# Close the browser window
-driver.quit()
+def usage():
+    msg = 
+    Please use the below command to use the script.
+    python script_name.py twitter_username
+    
+    print(msg)
+    sys.exit(1)
+
+def get_tweet_text(tweet):
+    tweet_text_box = tweet.find("p", {"class": "TweetTextSize TweetTextSize--normal js-tweet-text tweet-text"})
+    if tweet_text_box:
+        images_in_tweet_tag = tweet_text_box.find_all("a", {"class": "twitter-timeline-link u-hidden"})
+        tweet_text = tweet_text_box.text
+        for image_in_tweet_tag in images_in_tweet_tag:
+            tweet_text = tweet_text.replace(image_in_tweet_tag.text, '')
+        return tweet_text.strip()
+    return None
+
+def get_this_page_tweets(soup):
+    tweets_list = list()
+    tweets = soup.find_all("li", {"data-item-type": "tweet"})
+    for tweet in tweets:
+        tweet_data = get_tweet_text(tweet)
+        if tweet_data:
+            tweets_list.append(tweet_data)
+            print(".", end="")
+            sys.stdout.flush()
+    return tweets_list
+
+import twint
+
+def get_tweets_data(username):
+    c = twint.Config()
+    c.Username = username
+    c.Store_object = True
+    c.Limit = 10  # Set the limit to the number of tweets you want
+    twint.run.Search(c)
+    tweets_list = [tweet.tweet for tweet in twint.output.tweets]
+    return tweets_list
+
+
+def dump_data(username, tweets):
+    filename = username + "_twitter.json"
+    print("\nDumping data in file " + filename)
+    data = dict()
+    data["tweets"] = tweets
+    with open(filename, 'w') as fh:
+        json.dump(data, fh)
+    return filename
+
+def get_username():
+    # if username is not passed
+    if len(sys.argv) < 2:
+        usage()
+    username = sys.argv[1].strip().lower()
+    if not username:
+        usage()
+    return username
+
+def start(username=None):
+    username = get_username()
+    url = "http://www.twitter.com/" + username
+    print("\n\nDownloading tweets for " + username)
+    response = None
+    try:
+        response = requests.get(url)
+    except Exception as e:
+        print(repr(e))
+        sys.exit(1)
+
+    if response.status_code != 200:
+        print("Non-success status code returned " + str(response.status_code))
+        sys.exit(1)
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    if soup.find("div", {"class": "errorpage-topbar"}):
+        print("\n\n Error: Invalid username.")
+        sys.exit(1)
+
+    tweets = get_tweets_data(username, soup)
+    # dump data in a text file
+    dump_data(username, tweets)
+    print(str(len(tweets)) + " tweets dumped.")
+
+start()
+
+
+"""

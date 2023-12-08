@@ -1,0 +1,118 @@
+import spacy
+import pandas as pd
+import numpy as np
+
+"""text = "Me encanta el contenido del blog de Analytics Lane, los artículos son fantásticos."
+nlp = spacy.load('es_core_news_sm')
+doc = nlp(text)
+
+# Eliminación de palabras irrelevantes (stopwords) y signos de puntuación
+tokens = [token.lemma_.lower() for token in doc if not token.is_stop and not token.is_punct]
+# Reconstrucción del texto preprocesado
+preprocessed_text = ' '.join(tokens)
+preprocessed_text
+
+features = {}
+doc = nlp(preprocessed_text)
+
+for token in doc:
+    if not token.is_stop and not token.is_punct:
+        if token.lemma_.lower() in features:
+            features[token.lemma_.lower()] += 1
+        else:
+            features[token.lemma_.lower()] = 1
+            
+features"""
+
+data=pd.read_csv('entrenamiento/IMDB Dataset SPANISH.csv')
+n_samples=100
+
+training_data=np.asanyarray(data.drop(columns=['Index','review_en','sentiment']))[:n_samples,:]
+
+"""training_data = [
+    ("Me encanta el contenido del blog de Analytics Lane, los artículos son fantásticos.", "positivo"),
+    ("El código no funciona, me ha dado un error al ejecutarlo.", "negativo"),
+    ("Me encanta este producto.", "positivo"),
+    ("Esta película fue terrible.", "negativo"),
+    ("El clima está agradable hoy.", "positivo"),
+    ("Me siento triste por las noticias.", "negativo"),
+    ("Es solo un libro promedio.", "neutral")
+]"""
+
+
+def preprocess_text(text):
+    """
+    Realiza el preprocesamiento básico de un texto en idioma español utilizando spaCy.
+
+    Args:
+        text (str): El texto a ser preprocesado.
+
+    Returns:
+        str: El texto preprocesado.
+    """
+    nlp = spacy.load('es_core_news_sm')
+    doc = nlp(text)
+
+    # Eliminación de palabras irrelevantes (stopwords) y signos de puntuación
+    tokens = [token.lemma_.lower() for token in doc if not token.is_stop and not token.is_punct]
+
+    # Reconstrucción del texto preprocesado
+    preprocessed_text = ' '.join(tokens)
+
+    return preprocessed_text
+
+
+def extract_features(text):
+    """
+    Extrae las características del texto utilizando spaCy y devuelve un diccionario de características.
+
+    Args:
+        text (str): El texto del cual extraer características.
+
+    Returns:
+        dict: Un diccionario que representa las características extraídas del texto.
+    """
+    features = {}
+    doc = nlp(text)
+    for token in doc:
+        if not token.is_stop and not token.is_punct:
+            if token.lemma_.lower() in features:
+                features[token.lemma_.lower()] += 1
+            else:
+                features[token.lemma_.lower()] = 1
+    return features
+
+
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# Preprocesamiento de los datos de entrenamiento
+preprocessed_training_data = [(preprocess_text(text), label) for text, label in training_data]
+print(preprocessed_training_data)
+# Extracción de características de los datos de entrenamiento
+training_features = [extract_features(text) for text, _ in preprocessed_training_data]
+vectorizer = DictVectorizer(sparse=False)
+X_train = vectorizer.fit_transform(training_features)
+
+# Etiquetas de los datos de entrenamiento
+y_train = [label for _, label in preprocessed_training_data]
+
+# Entrenamiento del clasificador Naive Bayes
+classifier = MultinomialNB()
+classifier.fit(X_train,y_train)
+score=classifier.score(X_train,y_train)
+
+print('score',score)
+# Nuevo texto para clasificar
+new_text = "El apoyo al 1000 doctora Claudia Sheinbaum"
+
+# Preprocesamiento del nuevo texto
+preprocessed_text = preprocess_text(new_text)
+
+# Extracción de características del nuevo texto
+features = extract_features(preprocessed_text)
+X_test = vectorizer.transform([features])
+
+# Clasificación del nuevo texto
+sentiment = classifier.predict(X_test)
+print("Sentimiento:", sentiment[0])
