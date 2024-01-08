@@ -49,3 +49,7 @@ new_text = "Este producto es excelente, lo recomiendo totalmente."
 preprocessed_new_text = preprocess_text(new_text)
 prediction = model.predict([preprocessed_new_text])[0]
 print(f'Clasificación del nuevo texto: {prediction}')
+
+import joblib
+
+joblib.dump(model, 'modelo_entrenado.pkl')
